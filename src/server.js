@@ -1,6 +1,6 @@
 import express from "express";
 import setupMiddware from "./middleware";
-import { verifyUser, verifyToken, signup } from "./lib/auth";
+import { verifyUser, authorize, signup } from "./lib/auth";
 import { connect } from "./config/db";
 import { graphQLRouter } from "./api/graphQLRouter";
 import { graphiqlExpress } from "apollo-server-express";
@@ -15,8 +15,9 @@ app.use("/signin", verifyUser);
 app.post("/signup", (req, res) => {
     signup(req, res);
 });
-app.get("/test", (req, res) => {
-    verifyToken(req, res);
+
+app.get("/test", authorize, (req, res) => {
+    res.send("authorized")
 });
 app.use("/graphql", graphQLRouter);
 app.use("/docs", graphiqlExpress({ endpointURL: "/graphql" }));
