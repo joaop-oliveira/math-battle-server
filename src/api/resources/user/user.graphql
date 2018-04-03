@@ -21,6 +21,7 @@ input UserInputUpdate {
 
 type Query {
     getAllUsers:[User]!
+    getCurrentUser: User!
     getUser(_id: String): User!
 }
 

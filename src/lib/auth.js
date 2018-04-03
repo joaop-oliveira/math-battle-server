@@ -6,16 +6,14 @@ const SHA256 = require('crypto-js/sha256');
 
 export const signup = async (req, res) => {
   const hash = await bcrypt.hash(req.body.password, 6);
-  // const refreshToken = crypto.randomBytes();
   req.body.password = hash;
   let newUser = await User.create(req.body);
   if(newUser) {
-      const authToken = jwt.sign({_id: newUser._id.toString(), email: newUser.email}, 'mathsecret', {expiresIn: 30});
+      const authToken = jwt.sign({_id: newUser._id.toString(), email: newUser.email}, 'mathsecret');
       const newAuthedUser = {
           ...newUser._doc,
           token: authToken
       };
-      console.log(newUser);
       res.status(200).json(newAuthedUser);
   } else {
       res.status(404).json({message: "could not create user"});
@@ -26,12 +24,10 @@ const generateAuthToken = async (user, res, password) => {
     const hash = await bcrypt.compare(password, user.password);
     if(hash) {
         const hashKey = SHA256(Math.random()).toString();
-        const refreshToken = jwt.sign({_id: user._id.toString(), email: user.email, hashKey}, 'mathsecret');
-        const authToken = jwt.sign({_id: user._id.toString(), email: user.email}, 'mathsecret', {expiresIn: 30}).toString();
+        const authToken = jwt.sign({_id: user._id.toString(), email: user.email}, 'mathsecret').toString();
         const authedUser = {
             ...user._doc,
-            token: authToken,
-            refreshToken
+            token: authToken
         };
         res.status(200).json(authedUser);
     } else {
@@ -49,18 +45,14 @@ export const verifyUser = async (req, res) => {
 };
 
 export const authorize = async (req, res, next) => {
-  const { token, refreshToken } = req.headers;
-  if(refreshToken) {
+  const { token } = req.headers;
       const verifiedToken = jwt.verify(token, 'mathsecret');
       if (verifiedToken){
-          console.log(verifiedToken);
+          req.user = verifiedToken;
           next();
       } else {
           res.status(404).json({message: "user unauthorized"})
       }
-  } else {
-      res.status(404).json({message: "session expired"})
-  }
 };
 
 

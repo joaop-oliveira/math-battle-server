@@ -3,6 +3,9 @@ import User from './user.model'
 const getAllUsers = async () =>
     await User.find({}).exec();
 
+const getCurrentUser = async (_, __, {user}) =>
+    await User.findById(user._id).exec();
+
 const getUser = async (_, {_id}) =>
     await User.findById(_id).exec();
 
@@ -19,7 +22,8 @@ const deactivateUser = async (_, {_id}) => {
 export const userResolvers = {
     Query: {
         getAllUsers,
-        getUser
+        getUser,
+        getCurrentUser
     },
     Mutation: {
         updateUser,

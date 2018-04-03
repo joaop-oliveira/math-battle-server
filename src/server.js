@@ -17,6 +17,7 @@ app.post("/signup", (req, res) => {
 });
 
 app.get("/test", authorize, (req, res) => {
+    console.log(req.user);
     res.send("authorized")
 });
 app.use("/graphql", graphQLRouter);
