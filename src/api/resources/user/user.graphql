@@ -1,0 +1,30 @@
+type User {
+    name: String!
+    email: String!
+    password: String!
+    user_name: String!
+}
+
+input UserInputCreate {
+    name: String!
+    email: String!
+    password: String!
+    user_name: String!
+}
+
+input UserInputUpdate {
+    name: String
+    email: String
+    password: String
+    user_name: String
+}
+
+type Query {
+    getAllUsers:[User]!
+    getUser(_id: String): User!
+}
+
+type Mutation {
+    updateUser(_id: String!, UserInputUpdate: UserInputUpdate!): User!
+    deactivateUser(_id: String!): User!
+}
