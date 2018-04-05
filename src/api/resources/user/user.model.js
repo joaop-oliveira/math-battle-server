@@ -30,8 +30,21 @@ const userSchema = new mongoose.Schema({
     clan : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Clan'
+    },
+    token: {
+        type: String,
+        required: true
     }
 });
+
+userSchema.methods.findByToken = (token) => {
+    const User = this;
+    try {
+        return User.find({token}).exec();
+    }catch(e) {
+        return Promise.reject();
+    }
+};
 
 const User = mongoose.model('User', userSchema);
 

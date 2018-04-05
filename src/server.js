@@ -1,6 +1,6 @@
 import express from "express";
 import setupMiddware from "./middleware";
-import { verifyUser, verifyToken, signup } from "./lib/auth";
+import { signin, verifyToken, signup } from "./lib/auth";
 import { connect } from "./config/db";
 import { graphQLRouter } from "./api/graphQLRouter";
 import { graphiqlExpress } from "apollo-server-express";
@@ -11,7 +11,7 @@ setupMiddware(app);
 connect();
 // setup basic routing for index route
 
-app.use("/signin", verifyUser);
+app.use("/signin", signin);
 app.post("/signup", (req, res) => {
     signup(req, res);
 });
