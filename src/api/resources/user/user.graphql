@@ -1,8 +1,11 @@
 type User {
+# Jedson essse e seu comentario
+    _id: String!
     name: String!
     email: String!
     password: String!
     user_name: String!
+    clan : Clan!
 }
 
 input UserInputCreate {
@@ -20,7 +23,7 @@ input UserInputUpdate {
 }
 
 type Query {
-    getAllUsers:[User]!
+    getAllUsers: [User]!
     getUser(_id: String): User!
 }
 

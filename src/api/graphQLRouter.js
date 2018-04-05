@@ -1,7 +1,8 @@
-import { makeExecutableSchema } from "graphql-tools";
-import { userType, userResolvers } from "./resources/user";
-import merge from "lodash.merge";
-import { graphqlExpress } from "apollo-server-express";
+import { makeExecutableSchema } from 'graphql-tools';
+import { userType, userResolvers } from './resources/user';
+import { clanTypes, clanResolvers } from './resources/clan/';
+import merge from 'lodash.merge';
+import { graphqlExpress } from 'apollo-server-express';
 
 const baseSchema = `
   schema { 
@@ -11,14 +12,14 @@ const baseSchema = `
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [baseSchema, userType],
-  resolvers: merge({}, userResolvers),
+  typeDefs: [baseSchema, userType, clanTypes],
+  resolvers: merge({}, userResolvers, clanResolvers)
 });
 
 export const graphQLRouter = graphqlExpress(req => ({
   schema,
   context: {
     req,
-    user: req.user,
-  },
+    user: req.user
+  }
 }));
