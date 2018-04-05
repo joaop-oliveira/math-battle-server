@@ -64,7 +64,6 @@ export const verifyToken = async (req, res) => {
   const token = req.get('X-Auth');
       const verifiedToken = jwt.verify(token, 'mathsecret');
       tokenCache().authToken(verifiedToken.email, res, token);
-
 };
 
 
