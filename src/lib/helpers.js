@@ -1,22 +1,28 @@
-import User from '../api/resources/user/user.model';
-import jwt from "jsonwebtoken";
 import * as SHA256 from 'crypto-js/sha256';
 // get the pwd make the hash put it on the token compare with the database
 
 
-export const tokens = {};
+// export const sessionTokens = {};
+export const sessionTokens = {};
 
 export const tokenCache = () => ({
     addToken(email) {
         const hashedEmail = SHA256(email + 'mathsecret');
         const stringHashedEmail = hashedEmail.toString();
-        tokens[email] = stringHashedEmail;
+        sessionTokens[stringHashedEmail] = email
+    },
+    removeToken(email, res) {
+        console.log(sessionTokens);
+        const hashedEmail = SHA256(email + 'mathsecret');
+        const stringHashedEmail = hashedEmail.toString();
+        delete sessionTokens[stringHashedEmail];
+        console.log(sessionTokens);
+        res.status(200).json({message: "User Logged Out"});
     },
     authToken(email, res, headerToken) {
         const hashedEmail = SHA256(email + 'mathsecret');
         const stringHashedEmail = hashedEmail.toString();
-        const isLogged = Object.values(tokens).some(token => token === stringHashedEmail);
-        if (isLogged) {
+        if (stringHashedEmail in sessionTokens) {
             res.set('X-Auth', headerToken);
             res.send({authed: true});
         } else {

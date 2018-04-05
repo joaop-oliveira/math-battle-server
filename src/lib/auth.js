@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../api/resources/user/user.model"
-import {tokenCache, tokens} from "./helpers";
-import _ from "lodash";
-const bcrypt = require('bcrypt');
+import { tokenCache, sessionTokens } from "./helpers";
 import * as SHA256 from 'crypto-js/sha256';
 // get the pwd make the hash put it on the token compare with the database
 
@@ -20,7 +18,7 @@ export const signup = async ({ body }, res) => {
     try {
         const user = await User.create(newUser);
         tokenCache().addToken(email);
-        console.log(tokens);
+        // console.log(sessionTokens);
         res.set('X-Auth', jwt);
         res.status(200).json({message: 'User Created!!'})
     }catch(err) {
@@ -40,7 +38,7 @@ export const signin = async (req, res) => {
         const unauthToken = SHA256(email + hashedPasswd);
         if(unauthToken.toString() === token) {
             tokenCache().addToken(email);
-            console.log(tokens);
+            console.log(sessionTokens);
             res.set('X-Auth', jwt);
             res.status(200).json(user);
         }else {
@@ -56,14 +54,14 @@ export const signin = async (req, res) => {
 const createJWT = (hashedPasswd, email) =>
     jwt.sign({email, hashedPasswd}, 'mathsecret').toString();
 
-//
-// export const verifyUser = async token =>
-//         await User.findBytoken(token);
+export const destroySession = (email, res) =>
+    tokenCache().removeToken(email, res);
 
 export const verifyToken = async (req, res) => {
   const token = req.get('X-Auth');
       const verifiedToken = jwt.verify(token, 'mathsecret');
-      tokenCache().authToken(verifiedToken.email, res, token);
+      const { email } = verifiedToken;
+      tokenCache().authToken(email, res, token);
 };
 
 
