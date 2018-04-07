@@ -19,6 +19,7 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.5",
     "lodash.merge": "^4.6.0",
+    "mathjs": "^4.0.1",
     "mongoose": "^5.0.12"
   },
   "devDependencies": {

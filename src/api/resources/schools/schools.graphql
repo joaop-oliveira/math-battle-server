@@ -1,0 +1,29 @@
+type Clan {
+	_id: String!
+	name: String!
+	total_points: String!
+	users: [User]
+}
+
+input CreateClanInput {
+	name: String!
+	total_points: String!
+	users: String!
+}
+
+input UpdateClanInput {
+	name: String
+	total_points: String
+}
+
+extend type Query {
+	getAllClans: [Clan!]!
+	getClan(_id: String!): Clan!
+}
+
+extend type Mutation {
+	createClan(input: CreateClanInput!): Clan!
+	updateClan(input: UpdateClanInput!): Clan!
+	insertMember(_id: String!): Clan!
+	deactivateClan(_id: String!): Clan!
+}
