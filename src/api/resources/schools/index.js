@@ -1,2 +1,2 @@
-export * as clanTypes from './schools.graphql';
+export * as schoolTypes from './schools.graphql';
 export { schoolsResolvers } from './schools.resolvers';

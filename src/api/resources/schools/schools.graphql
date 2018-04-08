@@ -1,29 +1,23 @@
-type Clan {
+type School {
 	_id: String!
-	name: String!
-	total_points: String!
-	users: [User]
+	pythagoras: [Rank]!
+	euclid: [Rank]!
+    aristotle: [Rank]!
 }
 
-input CreateClanInput {
-	name: String!
-	total_points: String!
-	users: String!
-}
 
-input UpdateClanInput {
-	name: String
-	total_points: String
+input UpdateSchoolInput {
+    pythagoras: String!
+    euclid: String!
+    aristotle: String!
 }
 
 extend type Query {
-	getAllClans: [Clan!]!
-	getClan(_id: String!): Clan!
+	getAllSchools: [School!]!
+	getSchool(_id: String!): School!
 }
 
 extend type Mutation {
-	createClan(input: CreateClanInput!): Clan!
-	updateClan(input: UpdateClanInput!): Clan!
-	insertMember(_id: String!): Clan!
-	deactivateClan(_id: String!): Clan!
+	updateSchool(input: UpdateSchoolInput!): School!
+	insertMember(_id: String!): School!
 }

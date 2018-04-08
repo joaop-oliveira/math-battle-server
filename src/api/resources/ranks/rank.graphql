@@ -1,0 +1,28 @@
+type Rank {
+    _id: String!
+    acolyte: [User]!
+    student: [User]!
+    master: [User]!
+}
+
+input CreateRankInput {
+    acolyte: String
+    student: String
+    master: String
+}
+
+input UpdateRankInput {
+    acolyte: String
+    student: String
+    master: String
+}
+
+extend type Query {
+    getAllByRank(rank_name: String!): [User]!
+    getPlayerByRank(rank_name: String!, user_id: String!): User!
+}
+
+extend type Mutation {
+    insertPlayer(user_id: String!): User!
+    updatePlayer(user_id: String!): User!
+}

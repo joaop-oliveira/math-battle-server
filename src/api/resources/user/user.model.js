@@ -24,7 +24,11 @@ const userSchema = new mongoose.Schema({
       required: [true, "User must be active or not"]
     },
     totalPoints: {
-      type: String,
+      type: Number,
+      required: false
+    },
+    rank_points:{
+      type: Number,
       required: false
     },
     clan : {

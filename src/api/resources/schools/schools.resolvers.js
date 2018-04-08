@@ -1,50 +1,35 @@
-import Clan from './schools.model';
-import User from '../user/user.model';
+import School from './schools.model';
 
-const getAllClans = async () => await Clan.find({}).exec();
+const getAllSchools = async () => await School.find({}).exec();
 
-const getClan = async (_, { _id }) => await Clan.findById(_id).exec();
+const getSchool = async (_, { _id }) => await School.findById(_id).exec();
 
-const updateClan = async (_, { _id, input }) => {
-    const updatedClan = await Clan.findByIdAndUpdate(input._id, { $set: input }).exec();
-    return updatedClan;
+const updateSchool = async (_, { _id, input }) => {
+    const updatedSchool = await School.findByIdAndUpdate(input._id, { $set: input }).exec();
+    return updatedSchool;
 };
 
-const createClan = async (_, { input }) => {
-    const newClan = await Clan.create(input);
-    console.log(newClan);
-    if (!newClan) {
-        throw new Error('Could not create the Clan');
-    }
-    return newClan;
-};
 
 const insertMember = async (_, { _id }) => {
-    const updatedClan = await Clan.findByIdAndUpdate(_id, { $set: { users: { _id } } }).exec();
-    if (!updatedClan) {
-        throw new Error('Could not update the Clan' + updatedClan);
+    const updatedSchool = await School.findByIdAndUpdate(_id, { $set: { users: { _id } } }).exec();
+    if (!updatedSchool) {
+        throw new Error('Could not update the School' + updatedSchool);
     }
-    return updatedClan;
+    return updatedSchool;
 };
 
-const deactivateClan = async (_, { _id }) => {
-    const deactivatedClan = await Clan.findByIdAndUpdate(_id, { $set: { active: false } }).exec();
-    return deactivatedClan;
-};
 
 export const schoolsResolvers = {
     Query: {
-        getAllClans,
-        getClan
+        getAllSchools,
+        getSchool
     },
     Mutation: {
-        updateClan,
-        createClan,
+        updateSchool,
         insertMember,
-        deactivateClan
     },
-    Clan: {
-        async users (root) {
+    School: {
+        async pythagoras (root) {
             console.log('ROOT QUERY DOCUMENT ====> ' + root);
             const populatedQuery =  await root.populate('users').execPopulate();
             console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);

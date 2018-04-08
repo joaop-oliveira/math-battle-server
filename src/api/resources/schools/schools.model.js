@@ -2,32 +2,23 @@ import mongoose from 'mongoose';
 
 const schoolSchema = new mongoose.Schema({
     pythagoras: {
-        student:{
-            users: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
-                }
-            ]
+        rank: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rank'
         }
     },
     euclid: {
-        users: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            }
-        ]
+        rank: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rank'
+        }
     },
     aristotle: {
-        users: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            }
-        ]
+        rank: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Rank'
+        }
     }
-
 });
 
 const School = mongoose.model('School', schoolSchema);
