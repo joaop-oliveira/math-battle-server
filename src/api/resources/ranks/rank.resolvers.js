@@ -7,8 +7,12 @@ const getAllByRank = async (_, { rank_name }) =>
 const getPlayerByRank = async (_, { rank_name, user_id }) =>
     await Rank.find({}).select(rank_name).where({_id: user_id});
 
-const insertPlayer = async (_, { input }) =>
-    await Rank.create(input);
+const insertPlayer = async (_, { user_id }) =>{
+    const data = await Rank.create({ acolyte: { _id: user_id } });
+    return data;
+}
+
+
 
  const updatePlayer = async (_, {rank_name, user_id}) =>
      await Rank.find({}).select(rank_name).where({_id: user_id});
@@ -22,12 +26,24 @@ export const rankResolvers = {
         insertPlayer,
         updatePlayer
     },
-    Clan: {
-        async users (root) {
+    Rank: {
+        async acolyte (rank) {
             console.log('ROOT QUERY DOCUMENT ====> ' + root);
-            const populatedQuery =  await root.populate('users').execPopulate();
+            const populatedQuery =  await rank.populate('acolyte').execPopulate();
             console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
-            return populatedQuery.users;
+            return populatedQuery.players;
+        },
+        async student (root) {
+            console.log('ROOT QUERY DOCUMENT ====> ' + root);
+            const populatedQuery =  await root.populate('student').execPopulate();
+            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
+            return populatedQuery.players;
+        },
+        async master (root) {
+            console.log('ROOT QUERY DOCUMENT ====> ' + root);
+            const populatedQuery =  await root.populate('master').execPopulate();
+            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
+            return populatedQuery.players;
         }
     }
 };

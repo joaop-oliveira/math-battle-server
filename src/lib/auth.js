@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../api/resources/user/user.model"
+import Player from "../api/resources/player/player.model"
 import { tokenCache, sessionTokens } from "./helpers";
 import * as SHA256 from 'crypto-js/sha256';
 // get the pwd make the hash put it on the token compare with the database
@@ -10,17 +10,17 @@ export const signup = async ({ body }, res) => {
     const hashedPasswd = SHA256(saltedPasswor);
     const jwt = createJWT(hashedPasswd, email);
     const token = SHA256(email + hashedPasswd);
-    const newUser = {
+    const newPlayer = {
         ...body,
         password: hashedPasswd,
         token
     };
     try {
-        const user = await User.create(newUser);
+        const player = await Player.create(newPlayer);
         tokenCache().addToken(email);
         // console.log(sessionTokens);
         res.set('X-Auth', jwt);
-        res.status(200).json({message: 'User Created!!'})
+        res.status(200).json({message: 'Player Created!!'})
     }catch(err) {
         res.status(404).json({error: err})
     }
@@ -30,8 +30,8 @@ export const signup = async ({ body }, res) => {
 export const signin = async (req, res) => {
     const {password, email} = req.headers;
     try{
-        const user = await User.find({email}).exec();
-        const { token } = user[0];
+        const player = await Player.find({email}).exec();
+        const { token } = player[0];
         const saltedPassword = password + 'mathsecret';
         const hashedPasswd = SHA256(saltedPassword);
         const jwt = createJWT(hashedPasswd, email);
@@ -40,7 +40,7 @@ export const signin = async (req, res) => {
             tokenCache().addToken(email);
             console.log(sessionTokens);
             res.set('X-Auth', jwt);
-            res.status(200).json(user);
+            res.status(200).json(player);
         }else {
             res.status(404)
                 .json({error: "unauthorized", message: "email or password are wrong"});

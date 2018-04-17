@@ -1,5 +1,5 @@
 import { makeExecutableSchema } from 'graphql-tools';
-import { userType, userResolvers } from './resources/user';
+import { playerType, playerResolvers } from './resources/player';
 import { clanTypes, clanResolvers } from './resources/clan/';
 import { rankResolvers, rankTypes } from './resources/ranks';
 import { schoolsResolvers, schoolTypes } from "./resources/schools";
@@ -14,8 +14,8 @@ const baseSchema = `
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs: [baseSchema, userType, clanTypes, rankTypes, schoolTypes],
-  resolvers: merge({}, userResolvers, clanResolvers, schoolsResolvers, rankResolvers)
+  typeDefs: [baseSchema, playerType, clanTypes, rankTypes, schoolTypes],
+  resolvers: merge({}, playerResolvers, clanResolvers, schoolsResolvers, rankResolvers)
 });
 
 export const graphQLRouter = graphqlExpress(req => ({

@@ -5,7 +5,6 @@ type School {
     aristotle: [Rank]!
 }
 
-
 input UpdateSchoolInput {
     pythagoras: String!
     euclid: String!

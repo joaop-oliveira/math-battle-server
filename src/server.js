@@ -11,17 +11,17 @@ setupMiddware(app);
 connect();
 // setup basic routing for index route
 
-// app.use("/signin", signin);
-// app.post("/signup", (req, res) => {
-//     signup(req, res);
-// });
-// app.get("/test", (req, res) => {
-//     verifyToken(req, res);
-// });
-// app.get("/signout", (req, res) => {
-//     const { email } = req.headers;
-//     destroySession(email, res);
-// });
+app.use("/signin", signin);
+app.post("/signup", (req, res) => {
+    signup(req, res);
+});
+app.get("/test", (req, res) => {
+    verifyToken(req, res);
+});
+app.get("/signout", (req, res) => {
+    const { email } = req.headers;
+    destroySession(email, res);
+});
 app.use("/graphql", graphQLRouter);
 app.use("/docs", graphiqlExpress({ endpointURL: "/graphql" }));
 

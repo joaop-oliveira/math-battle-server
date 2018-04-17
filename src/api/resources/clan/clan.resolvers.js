@@ -1,5 +1,4 @@
 import Clan from './clan.model';
-import User from '../user/user.model';
 
 const getAllClans = async () => await Clan.find({}).exec();
 
@@ -20,7 +19,7 @@ const createClan = async (_, { input }) => {
 };
 
 const insertMember = async (_, { _id }) => {
-    const updatedClan = await Clan.findByIdAndUpdate(_id, { $set: { users: { _id } } }).exec();
+    const updatedClan = await Clan.findByIdAndUpdate(_id, { $set: { players: { _id } } }).exec();
     if (!updatedClan) {
         throw new Error('Could not update the Clan' + updatedClan);
     }
@@ -44,9 +43,9 @@ export const clanResolvers = {
         deactivateClan
     },
     Clan: {
-        async users (root) {
+        async players (root) {
             console.log('ROOT QUERY DOCUMENT ====> ' + root);
-            const populatedQuery =  await root.populate('users').execPopulate();
+            const populatedQuery =  await root.populate('players').execPopulate();
             console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
             return populatedQuery.users;
         }

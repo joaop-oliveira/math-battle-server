@@ -9,10 +9,10 @@ const clanSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    users: [
+    players: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'Player'
         }
     ]
 });

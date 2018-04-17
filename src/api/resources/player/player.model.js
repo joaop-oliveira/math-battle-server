@@ -1,10 +1,10 @@
 
 import mongoose from 'mongoose'
 
-const userSchema = new mongoose.Schema({
+const playerSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "User name is required"]
+        required: [true, "Player name is required"]
     },
     password: {
         type: String,
@@ -17,11 +17,11 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, 'User must have an email']
+        required: [true, 'Player must have an email']
     },
     active: {
       type: Boolean,
-      required: [true, "User must be active or not"]
+      required: [true, "Player must be active or not"]
     },
     totalPoints: {
       type: Number,
@@ -41,15 +41,15 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-userSchema.methods.findByToken = (token) => {
-    const User = this;
+playerSchema.methods.findByToken = (token) => {
+    const Player = this;
     try {
-        return User.find({token}).exec();
+        return Player.find({token}).exec();
     }catch(e) {
         return Promise.reject();
     }
 };
 
-const User = mongoose.model('User', userSchema);
+const Player = mongoose.model('Player', playerSchema);
 
-export default User;
+export default Player;

@@ -31,7 +31,19 @@ export const schoolsResolvers = {
     School: {
         async pythagoras (root) {
             console.log('ROOT QUERY DOCUMENT ====> ' + root);
-            const populatedQuery =  await root.populate('users').execPopulate();
+            const populatedQuery =  await root.populate('pythagoras').execPopulate();
+            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
+            return populatedQuery.users;
+        },
+        async euclid (root) {
+            console.log('ROOT QUERY DOCUMENT ====> ' + root);
+            const populatedQuery =  await root.populate('euclid').execPopulate();
+            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
+            return populatedQuery.users;
+        },
+        async aristotle (root) {
+            console.log('ROOT QUERY DOCUMENT ====> ' + root);
+            const populatedQuery =  await root.populate('aristotle').execPopulate();
             console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
             return populatedQuery.users;
         }

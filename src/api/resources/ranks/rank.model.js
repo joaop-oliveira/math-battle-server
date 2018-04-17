@@ -1,30 +1,22 @@
 import mongoose from 'mongoose';
 
 const rankSchema = new mongoose.Schema({
-        acolyte:{
-            users: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
-                }
-            ]
-        },
-        student:{
-            users: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
-                }
-            ]
-        },
-        master:{
-            users: [
-                {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
-                }
-            ]
-        },
+        acolyte:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        student:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        master:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+});
+
+rankSchema.post('save', async doc => {
+   console.log(doc);
 });
 
 const Rank = mongoose.model('Rank', rankSchema);
