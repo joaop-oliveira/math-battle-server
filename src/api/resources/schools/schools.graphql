@@ -1,8 +1,8 @@
 type School {
 	_id: String!
-	pythagoras: [Rank]!
-	euclid: [Rank]!
-    aristotle: [Rank]!
+	pythagoras: [Player]!
+	euclid: [Player]!
+    aristotle: [Player]!
 }
 
 input UpdateSchoolInput {
@@ -17,6 +17,8 @@ extend type Query {
 }
 
 extend type Mutation {
-	updateSchool(input: UpdateSchoolInput!): School!
-	insertMember(_id: String!): School!
+    #Usar newRankedPlayer somente para em caso o banco nao existir!
+	newRankedPlayer(user_id: String!): School!
+    #Use updateNewPlayer para inserir um jogador nos ranks do jogo!
+	updateNewPlayer(_id: String!, user_id: String!): School!
 }

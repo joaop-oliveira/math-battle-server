@@ -52,7 +52,7 @@ module.exports = {
       raw: true,
       entryOnly: false
     }),
-    new CleanWebPackPlugin(__dirname + 'dist')
+    new CleanWebPackPlugin(__dirname + '/dist')
   ],
   output: { path: path.join(__dirname, "dist"), filename: "server.js" }
 };

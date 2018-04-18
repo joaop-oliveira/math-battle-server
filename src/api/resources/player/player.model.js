@@ -35,6 +35,10 @@ const playerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    current_school:{
+      type: String,
+      required: false
+    },
     clan : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Clan'
