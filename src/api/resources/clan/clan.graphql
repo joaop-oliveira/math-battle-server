@@ -2,13 +2,13 @@ type Clan {
 	_id: String!
 	name: String!
 	total_points: String!
-	users: [User]
+	players: [Player]
 }
 
 input CreateClanInput {
 	name: String!
 	total_points: String!
-	users: String!
+	players: String!
 }
 
 input UpdateClanInput {

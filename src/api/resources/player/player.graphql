@@ -1,4 +1,4 @@
-type User {
+type Player {
 # Jedson essse e seu comentario
     _id: String!
     name: String!
@@ -8,14 +8,14 @@ type User {
     clan : Clan!
 }
 
-input UserInputCreate {
+input PlayerInputCreate {
     name: String!
     email: String!
     password: String!
     user_name: String!
 }
 
-input UserInputUpdate {
+input PlayerInputUpdate {
     name: String
     email: String
     password: String
@@ -23,11 +23,11 @@ input UserInputUpdate {
 }
 
 type Query {
-    getAllUsers: [User]!
-    getUser(_id: String): User!
+    getAllPlayers: [Player]!
+    getPlayer(_id: String): Player!
 }
 
 type Mutation {
-    updateUser(_id: String!, UserInputUpdate: UserInputUpdate!): User!
-    deactivateUser(_id: String!): User!
+    updatePlayer(_id: String!, PlayerInputUpdate: PlayerInputUpdate!): Player!
+    deactivatePlayer(_id: String!): Player!
 }

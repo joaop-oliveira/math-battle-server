@@ -1,0 +1,22 @@
+type School {
+	_id: String!
+	pythagoras: [Rank]!
+	euclid: [Rank]!
+    aristotle: [Rank]!
+}
+
+input UpdateSchoolInput {
+    pythagoras: String!
+    euclid: String!
+    aristotle: String!
+}
+
+extend type Query {
+	getAllSchools: [School!]!
+	getSchool(_id: String!): School!
+}
+
+extend type Mutation {
+	updateSchool(input: UpdateSchoolInput!): School!
+	insertMember(_id: String!): School!
+}
