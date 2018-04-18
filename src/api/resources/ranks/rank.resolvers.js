@@ -1,18 +1,24 @@
 import Rank from './rank.model';
-import Clan from "../clan/clan.model";
 
-const getAllByRank = async (_, { rank_name }) =>
-  await Rank.find({}).select(rank_name);
+const getAllByRank = async (_, { rank_name }) => {
+    const data = await Rank.find({}).select(rank_name);
+    return data[0]
+    // console.log(await Rank.find({}));
+}
 
-const getPlayerByRank = async (_, { rank_name, user_id }) =>
-    await Rank.find({}).select(rank_name).where({_id: user_id});
+
+
+const getPlayerByRank = async (_, { rank_name, user_id }) => {
+    const data = await Rank.find({}).select(rank_name).where([{acolyte: user_id}]);
+    console.log(data[0].acolyte);
+    return data[0];
+}
+
 
 const insertPlayer = async (_, { user_id }) =>{
     const data = await Rank.create({ acolyte: { _id: user_id } });
     return data;
 }
-
-
 
  const updatePlayer = async (_, {rank_name, user_id}) =>
      await Rank.find({}).select(rank_name).where({_id: user_id});
@@ -27,22 +33,16 @@ export const rankResolvers = {
         updatePlayer
     },
     Rank: {
-        async acolyte (rank) {
-            console.log('ROOT QUERY DOCUMENT ====> ' + root);
-            const populatedQuery =  await rank.populate('acolyte').execPopulate();
-            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
-            return populatedQuery.players;
+        async acolyte (root) {
+            const populatedQuery =  await root.populate('acolyte').execPopulate();
+            return populatedQuery.acolyte;
         },
         async student (root) {
-            console.log('ROOT QUERY DOCUMENT ====> ' + root);
             const populatedQuery =  await root.populate('student').execPopulate();
-            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
             return populatedQuery.players;
         },
         async master (root) {
-            console.log('ROOT QUERY DOCUMENT ====> ' + root);
             const populatedQuery =  await root.populate('master').execPopulate();
-            console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
             return populatedQuery.players;
         }
     }

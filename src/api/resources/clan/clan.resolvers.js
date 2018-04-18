@@ -47,7 +47,7 @@ export const clanResolvers = {
             console.log('ROOT QUERY DOCUMENT ====> ' + root);
             const populatedQuery =  await root.populate('players').execPopulate();
             console.log('CLAN USERS QUERY POP RESULT =====> ' + populatedQuery);
-            return populatedQuery.users;
+            return populatedQuery.players;
         }
     }
 };

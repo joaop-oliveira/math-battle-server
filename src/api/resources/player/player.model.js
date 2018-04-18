@@ -50,6 +50,12 @@ playerSchema.methods.findByToken = (token) => {
     }
 };
 
+playerSchema.post('save', async doc => {
+    if (doc.total_points > 100) {
+
+    }
+});
+
 const Player = mongoose.model('Player', playerSchema);
 
 export default Player;
