@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
 const schoolSchema = new mongoose.Schema({
-    pythagoras: {
+    pythagoras: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
-    },
-    euclid: {
+        ref: 'Player'
+    }],
+    euclid: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
-    },
-    aristotle: {
+        ref: 'Player'
+    }],
+    aristotle: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
-    }
+        ref: 'Player'
+    }]
 });
 
 const School = mongoose.model('School', schoolSchema);
