@@ -1,4 +1,5 @@
 import School from './schools.model';
+import Rank from "../ranks/rank.model";
 
 const getAllSchools = async () => await School.find({}).exec();
 
@@ -9,6 +10,10 @@ const updateSchool = async (_, { _id, input }) => {
     return updatedSchool;
 };
 
+const newRankedPlayer = async (_, { user_id }) =>{
+    const data = await Rank.create({ pythagoras: { acolyte: { _id: user_id } } } );
+    return data;
+}
 
 const insertMember = async (_, { _id }) => {
     const updatedSchool = await School.findByIdAndUpdate(_id, { $set: { users: { _id } } }).exec();
@@ -25,6 +30,7 @@ export const schoolsResolvers = {
         getSchool
     },
     Mutation: {
+        newRankedPlayer,
         updateSchool,
         insertMember,
     },

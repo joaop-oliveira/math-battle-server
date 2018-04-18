@@ -31,6 +31,10 @@ const playerSchema = new mongoose.Schema({
       type: Number,
       required: false
     },
+    current_rank: {
+        type: String,
+        required: false
+    },
     clan : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Clan'

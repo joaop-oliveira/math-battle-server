@@ -2,16 +2,46 @@ import mongoose from 'mongoose';
 
 const schoolSchema = new mongoose.Schema({
     pythagoras: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
+        acolyte:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        student:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        master:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
     },
     euclid: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
+        acolyte:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        student:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        master:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
     },
     aristotle: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Rank'
+        acolyte:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        student:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
+        master:[{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Player'
+        }],
     }
 });
 
