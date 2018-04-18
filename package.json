@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --colors --progress",
+    "start": "webpack --colors --progress"
   },
   "dependencies": {
     "apollo-server-express": "^1.1.6",
