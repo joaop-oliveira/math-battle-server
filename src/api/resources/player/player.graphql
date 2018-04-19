@@ -1,5 +1,6 @@
+#O tipo Player serve para acessar os dados do jogador.
+#aqui vc entontra os dados do jogador e quais ranks e clans ele pertence
 type Player {
-# Jedson essse e seu comentario
     _id: String!
     name: String!
     email: String!
