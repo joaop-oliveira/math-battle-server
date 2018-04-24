@@ -1,33 +1,25 @@
 type Player {
-# Jedson essse e seu comentario
-    _id: String!
-    name: String!
-    email: String!
-    password: String!
-    user_name: String!
-    clan : Clan!
-}
-
-input PlayerInputCreate {
-    name: String!
-    email: String!
-    password: String!
-    user_name: String!
+  _id: String!
+  name: String!
+  email: String!
+  password: String!
+  user_name: String!
+  clan: Clan!
 }
 
 input PlayerInputUpdate {
-    name: String
-    email: String
-    password: String
-    user_name: String
+  name: String
+  email: String
+  user_name: String
 }
 
 type Query {
-    getAllPlayers: [Player]!
-    getPlayer(_id: String): Player!
+  getAllPlayers: [Player]!
+  getPlayer(_id: String): Player!
 }
 
 type Mutation {
-    updatePlayer(_id: String!, PlayerInputUpdate: PlayerInputUpdate!): Player!
-    deactivatePlayer(_id: String!): Player!
+  updatePlayer(_id: String!, PlayerInputUpdate: PlayerInputUpdate!): Player!
+  deactivatePlayer(_id: String!): Player!
+  activatePlayer(_id: String!): Player!
 }

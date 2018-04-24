@@ -16,6 +16,11 @@ const deactivatePlayer = async (_, {_id}) => {
     return deactivatedPlayer;
 };
 
+const activatePlayer = async (_, {_id}) => {
+    const activatedPlayer = await Player.findByIdAndUpdate(_id, {$set : {active: true}}).exec();
+    return activatedPlayer;
+};
+
 export const playerResolvers = {
     Query: {
         getAllPlayers,
@@ -23,6 +28,7 @@ export const playerResolvers = {
     },
     Mutation: {
         updatePlayer,
-        deactivatePlayer
+        deactivatePlayer,
+        activatePlayer
     }
 };

@@ -23,7 +23,7 @@ extend type Query {
 
 extend type Mutation {
 	createClan(input: CreateClanInput!): Clan!
-	updateClan(input: UpdateClanInput!): Clan!
+	updateClan(_id: String!, input: UpdateClanInput!): Clan!
 	insertMember(_id: String!): Clan!
 	deactivateClan(_id: String!): Clan!
 }

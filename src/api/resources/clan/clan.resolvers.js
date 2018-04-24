@@ -5,7 +5,8 @@ const getAllClans = async () => await Clan.find({}).exec();
 const getClan = async (_, { _id }) => await Clan.findById(_id).exec();
 
 const updateClan = async (_, { _id, input }) => {
-    const updatedClan = await Clan.findByIdAndUpdate(input._id, { $set: input }).exec();
+    const updatedClan = await Clan.findByIdAndUpdate(_id, { $set: input }).exec();
+    console.log(updatedClan);
     return updatedClan;
 };
 
@@ -19,7 +20,7 @@ const createClan = async (_, { input }) => {
 };
 
 const insertMember = async (_, { _id }) => {
-    const updatedClan = await Clan.findByIdAndUpdate(_id, { $set: { players: { _id } } }).exec();
+    const updatedClan = await Clan.findByIdAndUpdate(_id, { $push: { players: { _id } } }).exec();
     if (!updatedClan) {
         throw new Error('Could not update the Clan' + updatedClan);
     }
